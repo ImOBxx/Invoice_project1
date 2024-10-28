@@ -1,0 +1,30 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 800px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h2 { color: #333; }
+        .welcome-msg { font-size: 18px; margin-bottom: 20px; }
+        .logout-btn { color: white; background-color: #e74c3c; padding: 10px; text-decoration: none; border-radius: 5px; }
+        .logout-btn:hover { background-color: #c0392b; }
+        .dashboard-content { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to the Dashboard</h2>
+        <p class="welcome-msg">Hello, {{ request.user.username }}! You are logged in.</p>
+        
+        <div class="dashboard-content">
+            <p>This is where you can add dashboard content such as user stats, recent activities, or any other information relevant to the user.</p>
+        </div>
+
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+</body>
+</html>

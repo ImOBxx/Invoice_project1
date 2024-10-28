@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice {{ invoice.invoice_number }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 12px; color: #333; }
+        .invoice-container { width: 800px; margin: 0 auto; padding: 20px; border: 1px solid #333; }
+        .header { text-align: center; }
+        .header h1 { font-size: 16px; }
+        .header p { margin: 2px 0; }
+        .details-table, .items-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .details-table td, .items-table th, .items-table td { border: 1px solid #333; padding: 5px; }
+        .items-table th { background-color: #f2f2f2; }
+        .qr-code img { max-width: 100px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Invoice #{{ invoice.invoice_number }}</h1>
+    <p><strong>Invoice Date:</strong> {{ invoice.invoice_date|date:"F j, Y" }}</p>
+    <p><strong>Invoice Time:</strong> {{ invoice.invoice_time|time:"h:i:s A" }}</p>
+    
+    <div class="invoice-container">
+       
+        <div class="header">
+            <h1>TAX INVOICE</h1>
+            <p>{{ invoice.seller_name }}</p>
+            <p>{{ invoice.seller_address }}</p>
+            <p>GST: {{ invoice.seller_gst }} | PAN: {{ invoice.seller_pan }}</p>
+            <p>Email: {{ invoice.seller_email }} | Mobile: {{ invoice.seller_mobile }}</p>
+        </div>
+
+        
+        <table class="details-table">
+            <tr>
+                <td><strong>Bill To:</strong><br>{{ invoice.buyer_name }}<br>{{ invoice.buyer_address }}<br>GST: {{ invoice.buyer_gst }}<br>PAN: {{ invoice.buyer_pan }}<br>Email: {{ invoice.buyer_email }}<br>Mobile: {{ invoice.buyer_mobile }}</td>
+                <td><strong>Ship To:</strong><br>{{ invoice.buyer_name }}<br>{{ invoice.buyer_address }}<br>GST: {{ invoice.buyer_gst }}<br>PAN: {{ invoice.buyer_pan }}<br>Email: {{ invoice.buyer_email }}<br>Mobile: {{ invoice.buyer_mobile }}</td>
+            </tr>
+        </table>
+
+        
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>HSN Code</th>
+                    <th>Product Code</th>
+                    <th>Product Description</th>
+                    <th>Selling Price</th>
+                    <th>Qty</th>
+                    <th>Disc Amt</th>
+                    <th>GST %</th>
+                    <th>GST Amt</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>84713010</td>
+                    <td>MRW73HN/A</td>
+                    <td>16-inch MacBook Pro Apple M3 Max Chip...</td>
+                    <td>349900.00</td>
+                    <td>1</td>
+                    <td>20994.00</td>
+                    <td>18.0</td>
+                    <td>50177.10</td>
+                    <td>329966.00</td>
+                </tr>
+                
+            </tbody>
+        </table>
+
+        
+        <p><strong>Amount in Words:</strong> {{ invoice.amount_in_words }}</p>
+        <p><strong>Net Amount:</strong> Rs. {{ invoice.net_amount }}</p>
+        <p><strong>SGST:</strong> Rs. {{ invoice.sgst }} | <strong>CGST:</strong> Rs. {{ invoice.cgst }} | <strong>IGST:</strong> Rs. {{ invoice.igst }}</p>
+        <p><strong>Gross Amount:</strong> Rs. {{ invoice.gross_amount }}</p>
+        <p><strong>Discount:</strong> Rs. {{ invoice.discount }}</p>
+        <p><strong>Total Amount:</strong> Rs. {{ invoice.total_amount }}</p>
+
+        
+        <div class="qr-code">
+            <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code">
+        </div>
+    </div>
+</body>
+</html>
